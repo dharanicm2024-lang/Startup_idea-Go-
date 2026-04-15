@@ -21,8 +21,7 @@ WORKDIR /app
 # Copy the binary from builder
 COPY --from=builder /app/main .
 
-# Copy service account key
-COPY serviceAccountKey.json .
+# Service account key will be provided via FIREBASE_SERVICE_ACCOUNT environment variable in production
 
 # Expose port
 EXPOSE 8085
