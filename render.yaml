@@ -1,17 +1,18 @@
 services:
-  # Backend: Go Docker Service
+  # Backend: Native Go Service (More reliable on Render)
   - type: web
     name: task-manager-go-backend
-    runtime: docker
-    dockerContext: ./backend
+    runtime: go
+    buildCommand: cd backend && go build -o main .
+    startCommand: ./backend/main
     plan: free
     envVars:
       - key: PORT
         value: 8085
       - key: FIREBASE_SERVICE_ACCOUNT
-        sync: false # Set the contents of serviceAccountKey.json here in Render Dashboard
+        sync: false
 
-  # Frontend: Static Site (as a fallback/alternative to Vercel)
+  # Frontend: Static Site
   - type: web
     name: task-manager-frontend
     runtime: static
